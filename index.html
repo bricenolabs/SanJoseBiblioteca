@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#183c35" />
+  <title>Biblioteca San José de la Sierra</title>
+  <style>
+    :root {
+      --green: #183c35;
+      --green-light: #e8f0eb;
+      --cream: #f7f5ef;
+      --ink: #202722;
+      --muted: #68716b;
+      --line: #e3e5df;
+      --white: #fff;
+      --gold: #d3a85c;
+      --red: #a63e36;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .topbar {
+      background: var(--green);
+      color: var(--white);
+      padding: 14px 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 750;
+      letter-spacing: .01em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 19px;
+    }
+
+    .admin-button {
+      border: 1px solid rgba(255,255,255,.45);
+      color: white;
+      background: transparent;
+      border-radius: 9px;
+      padding: 9px 14px;
+      font-weight: 650;
+    }
+
+    .admin-button:hover { background: rgba(255,255,255,.1); }
+
+    main {
+      width: min(1050px, 88vw);
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 66px 0 34px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      color: #64776c;
+      font-size: .78rem;
+      font-weight: 750;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      color: var(--green);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 500;
+      line-height: 1.08;
+      margin: 12px 0;
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin: 0 auto;
+      max-width: 560px;
+      line-height: 1.6;
+    }
+
+    .search-panel {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      box-shadow: 0 12px 32px rgba(32,39,34,.06);
+      padding: 18px;
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 220px;
+      gap: 12px;
+    }
+
+    .search-wrap { position: relative; }
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: white;
+      color: var(--ink);
+      padding: 12px 13px;
+      outline: none;
+    }
+
+    .search-wrap input { padding-left: 42px; }
+    input:focus, select:focus, textarea:focus {
+      border-color: #709080;
+      box-shadow: 0 0 0 3px rgba(112,144,128,.15);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 36px 0 15px;
+    }
+
+    .section-heading h2 {
+      color: var(--green);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.7rem;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .count { color: var(--muted); font-size: .9rem; }
+
+    .book-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      padding-bottom: 60px;
+    }
+
+    .book-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 20px;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .area-tag {
+      display: inline-block;
+      color: var(--green);
+      background: var(--green-light);
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: .76rem;
+      font-weight: 700;
+    }
+
+    .availability {
+      flex: 0 0 auto;
+      font-size: .74rem;
+      font-weight: 700;
+      padding: 5px 8px;
+      border-radius: 20px;
+    }
+
+    .available { color: #236043; background: #e7f4eb; }
+    .unavailable { color: #8d3932; background: #f9e9e6; }
+
+    .book-card h3 {
+      color: var(--green);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin: 17px 0 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .book-number {
+      color: var(--muted);
+      font-size: .85rem;
+      margin: 0 0 12px;
+    }
+
+    .book-description {
+      color: #535c55;
+      font-size: .93rem;
+      line-height: 1.55;
+      margin: 0;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      border: 1px dashed #cbd1c9;
+      border-radius: 14px;
+      padding: 44px 20px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .empty-icon { font-size: 2rem; margin-bottom: 8px; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 22px 6vw;
+      text-align: center;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      background: rgba(16,28,22,.58);
+      display: grid;
+      place-items: center;
+      padding: 18px;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 15px;
+      width: min(510px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.2);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .modal-header h2 {
+      color: var(--green);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .close-button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .form-field { margin: 13px 0; }
+    .form-field label {
+      display: block;
+      font-size: .88rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    textarea { min-height: 90px; resize: vertical; }
+
+    .primary-button {
+      width: 100%;
+      margin-top: 8px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--green);
+      color: white;
+      padding: 12px 16px;
+      font-weight: 700;
+    }
+
+    .primary-button:hover { background: #245347; }
+
+    .error-message {
+      color: var(--red);
+      min-height: 1.2em;
+      font-size: .88rem;
+      margin: 8px 0 0;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.5;
+      margin: 12px 0 0;
+    }
+
+    @media (max-width: 620px) {
+      .topbar { padding: 12px 5vw; }
+      .brand { font-size: .9rem; }
+      .admin-button { padding: 8px 10px; font-size: .85rem; }
+      main { width: 90vw; }
+      .hero { padding-top: 48px; }
+      .search-panel { grid-template-columns: 1fr; }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">▤</span>
+      <span>Biblioteca SJS</span>
+    </div>
+    <button class="admin-button" id="adminButton" type="button">Administrador</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Biblioteca SJS</div>
+      <h1>Biblioteca San José de la Sierra</h1>
+      <p>Explora el catálogo y consulta la disponibilidad de los libros.</p>
+    </section>
+
+    <section class="search-panel" aria-label="Buscar y filtrar libros">
+      <div class="search-wrap">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="searchInput" type="search" placeholder="Buscar por título, área o número…" />
+      </div>
+      <select id="areaFilter" aria-label="Filtrar por área">
+        <option value="">Todas las áreas</option>
+      </select>
+    </section>
+
+    <section aria-labelledby="catalogTitle">
+      <div class="section-heading">
+        <h2 id="catalogTitle">Catálogo</h2>
+        <span class="count" id="bookCount"></span>
+      </div>
+      <div class="book-list" id="bookList"></div>
+    </section>
+  </main>
+
+  <footer>Biblioteca SJS · San José de la Sierra</footer>
+
+  <div class="overlay" id="adminOverlay" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 id="modalTitle">Acceso de administrador</h2>
+        <button class="close-button" id="closeModal" type="button" aria-label="Cerrar">×</button>
+      </div>
+
+      <form id="pinForm">
+        <div class="form-field">
+          <label for="pinInput">PIN de administrador</label>
+          <input id="pinInput" type="password" autocomplete="current-password" required />
+        </div>
+        <button class="primary-button" type="submit">Desbloquear</button>
+        <p class="error-message" id="pinError" role="alert"></p>
+      </form>
+
+      <form id="bookForm" hidden>
+        <div class="form-field">
+          <label for="titleInput">Título</label>
+          <input id="titleInput" maxlength="150" required />
+        </div>
+        <div class="form-field">
+          <label for="areaInput">Área</label>
+          <input id="areaInput" maxlength="80" required />
+        </div>
+        <div class="form-field">
+          <label for="numberInput">Número de libro</label>
+          <input id="numberInput" maxlength="50" required />
+        </div>
+        <div class="form-field">
+          <label for="descriptionInput">Breve descripción</label>
+          <textarea id="descriptionInput" maxlength="500" required></textarea>
+        </div>
+        <div class="form-field">
+          <label for="availabilityInput">Disponibilidad</label>
+          <select id="availabilityInput">
+            <option value="true">Disponible</option>
+            <option value="false">No disponible</option>
+          </select>
+        </div>
+        <button class="primary-button" type="submit">Añadir libro</button>
+        <p class="hint">Los datos se guardan en este navegador.</p>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    // PIN de demostración de 8 caracteres. No usar como seguridad en producción.
+    const ADMIN_PIN = "Sjs#7Q!2";
+    const STORAGE_KEY = "biblioteca-sjs-libros";
+
+    const adminButton = document.getElementById("adminButton");
+    const overlay = document.getElementById("adminOverlay");
+    const closeModal = document.getElementById("closeModal");
+    const pinForm = document.getElementById("pinForm");
+    const bookForm = document.getElementById("bookForm");
+    const pinInput = document.getElementById("pinInput");
+    const pinError = document.getElementById("pinError");
+    const searchInput = document.getElementById("searchInput");
+    const areaFilter = document.getElementById("areaFilter");
+    const bookList = document.getElementById("bookList");
+    const bookCount = document.getElementById("bookCount");
+
+    let books = loadBooks();
+    let unlocked = false;
+
+    function loadBooks() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        return Array.isArray(saved) ? saved : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveBooks() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[character]);
+    }
+
+    function updateAreaFilter() {
+      const currentValue = areaFilter.value;
+      const areas = [...new Set(books.map(book => book.area.trim()).filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b, "es"));
+
+      areaFilter.innerHTML = '<option value="">Todas las áreas</option>';
+      for (const area of areas) {
+        const option = document.createElement("option");
+        option.value = area;
+        option.textContent = area;
+        areaFilter.appendChild(option);
+      }
+
+      if (areas.includes(currentValue)) areaFilter.value = currentValue;
+    }
+
+    function renderBooks() {
+      updateAreaFilter();
+
+      const query = searchInput.value.trim().toLocaleLowerCase("es");
+      const selectedArea = areaFilter.value;
+
+      const filtered = books.filter(book => {
+        const searchable = [book.title, book.area, book.number, book.description]
+          .join(" ").toLocaleLowerCase("es");
+        return searchable.includes(query) && (!selectedArea || book.area === selectedArea);
+      });
+
+      bookCount.textContent = `${filtered.length} ${filtered.length === 1 ? "libro" : "libros"}`;
+
+      if (filtered.length === 0) {
+        const message = books.length === 0
+          ? "Todavía no hay libros en el catálogo. El administrador puede añadirlos."
+          : "No se encontraron libros con esa búsqueda o filtro.";
+
+        bookList.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon" aria-hidden="true">▤</div>
+            <div>${escapeHTML(message)}</div>
+          </div>`;
+        return;
+      }
+
+      bookList.innerHTML = filtered.map(book => `
+        <article class="book-card">
+          <div class="card-top">
+            <span class="area-tag">${escapeHTML(book.area)}</span>
+            <span class="availability ${book.available ? "available" : "unavailable"}">
+              ${book.available ? "Disponible" : "No disponible"}
+            </span>
+          </div>
+          <h3>${escapeHTML(book.title)}</h3>
+          <p class="book-number">N.º ${escapeHTML(book.number)}</p>
+          <p class="book-description">${escapeHTML(book.description)}</p>
+        </article>
+      `).join("");
+    }
+
+    function openModal() {
+      overlay.hidden = false;
+      pinError.textContent = "";
+      pinInput.value = "";
+      pinForm.hidden = unlocked;
+      bookForm.hidden = !unlocked;
+      document.getElementById(unlocked ? "titleInput" : "pinInput").focus();
+    }
+
+    function closeAdminModal() {
+      overlay.hidden = true;
+      pinError.textContent = "";
+      pinForm.reset();
+      bookForm.reset();
+    }
+
+    adminButton.addEventListener("click", openModal);
+    closeModal.addEventListener("click", closeAdminModal);
+
+    overlay.addEventListener("click", event => {
+      if (event.target === overlay) closeAdminModal();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !overlay.hidden) closeAdminModal();
+    });
+
+    pinForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (pinInput.value === ADMIN_PIN) {
+        unlocked = true;
+        pinForm.hidden = true;
+        bookForm.hidden = false;
+        document.getElementById("titleInput").focus();
+      } else {
+        pinError.textContent = "PIN incorrecto. Inténtalo de nuevo.";
+        pinInput.select();
+      }
+    });
+
+    bookForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      books.unshift({
+        title: document.getElementById("titleInput").value.trim(),
+        area: document.getElementById("areaInput").value.trim(),
+        number: document.getElementById("numberInput").value.trim(),
+        description: document.getElementById("descriptionInput").value.trim(),
+        available: document.getElementById("availabilityInput").value === "true"
+      });
+
+      saveBooks();
+      renderBooks();
+      closeAdminModal();
+    });
+
+    searchInput.addEventListener("input", renderBooks);
+    areaFilter.addEventListener("change", renderBooks);
+
+    renderBooks();
+  </script>
+</body>
+      </html>
