@@ -7,228 +7,53 @@
   <meta name="description" content="Catálogo de la Biblioteca San José de la Sierra." />
   <title>Biblioteca San José de la Sierra</title>
   <style>
-    :root {
-      --blue: #174ea6;
-      --blue-dark: #123b7a;
-      --blue-light: #eaf2ff;
-      --background: #f5f8fc;
-      --ink: #1d2939;
-      --muted: #667085;
-      --line: #e1e7f0;
-      --white: #fff;
-      --green: #18794e;
-      --red: #b42318;
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--background);
-      color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    button, input, select { font: inherit; }
-    button { cursor: pointer; }
-    .topbar {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 13px 6vw;
-      color: var(--white);
-      background: var(--blue);
-      box-shadow: 0 2px 10px rgba(18,59,122,.16);
-    }
-    .brand { display: flex; align-items: center; gap: 11px; font-weight: 750; }
-    .brand-mark {
-      width: 38px; height: 38px; display: grid; place-items: center;
-      border: 1px solid rgba(255,255,255,.55); border-radius: 10px; font-size: 19px;
-    }
-    .menu-button {
-      width: 42px; height: 42px; display: grid; place-content: center; gap: 5px;
-      border: 1px solid rgba(255,255,255,.4); border-radius: 9px;
-      background: transparent; color: white;
-    }
-    .menu-button:hover { background: rgba(255,255,255,.12); }
-    .menu-button span { width: 19px; height: 2px; border-radius: 2px; background: white; }
-    .dropdown {
-      position: absolute; right: 6vw; top: calc(100% + 8px); width: 230px;
-      padding: 7px; background: white; border: 1px solid var(--line);
-      border-radius: 11px; box-shadow: 0 12px 30px rgba(16,24,40,.15);
-    }
-    .dropdown[hidden], .overlay[hidden] { display: none; }
-    .dropdown button {
-      width: 100%; padding: 11px 12px; border: 0; border-radius: 7px;
-      background: white; color: var(--ink); text-align: left; font-weight: 650;
-    }
-    .dropdown button:hover { color: var(--blue); background: var(--blue-light); }
-    main { width: min(1050px, 88vw); margin: 0 auto; }
-    .hero { padding: 57px 0 30px; text-align: center; }
-    .eyebrow { color: var(--blue); font-size: .78rem; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; }
-    h1 {
-      margin: 12px 0; color: var(--blue-dark); font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.15rem, 5vw, 3.5rem); font-weight: 500; line-height: 1.1;
-    }
-    .hero p { max-width: 560px; margin: 0 auto; color: var(--muted); line-height: 1.6; }
-    .search-panel {
-      display: grid; grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(145px, 190px));
-      gap: 11px; padding: 17px; background: white; border: 1px solid var(--line);
-      border-radius: 13px; box-shadow: 0 8px 26px rgba(16,24,40,.05);
-    }
-    .search-wrap { position: relative; }
-    .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.2rem; }
-    input, select {
-      width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px;
-      background: white; color: var(--ink); outline: none;
-    }
-    .search-wrap input { padding-left: 40px; }
-    input:focus, select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(23,78,166,.13); }
-    .catalog-status { min-height: 1.3em; margin: 12px 2px 0; color: var(--muted); font-size: .84rem; }
-    .catalog-status.error { color: var(--red); }
-    .section-heading {
-      display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 30px 0 15px;
-    }
-    .section-heading h2 {
-      margin: 0; color: var(--blue-dark); font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.7rem; font-weight: 500;
-    }
-    .count { color: var(--muted); font-size: .9rem; }
-    .book-list {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 15px; padding-bottom: 55px;
-    }
-    .book-card { padding: 19px; background: white; border: 1px solid var(--line); border-radius: 12px; }
-    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .area-tag {
-      display: inline-block; padding: 5px 9px; border-radius: 20px; background: var(--blue-light);
-      color: var(--blue-dark); font-size: .76rem; font-weight: 700;
-    }
-    .availability { flex: 0 0 auto; padding: 5px 8px; border-radius: 20px; font-size: .74rem; font-weight: 700; }
-    .available { color: var(--green); background: #e8f5ee; }
-    .unavailable { color: var(--red); background: #fcebea; }
-    .book-card h3 {
-      margin: 16px 0 7px; color: var(--blue-dark); font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.3rem; overflow-wrap: anywhere;
-    }
-    .book-number { margin: 0 0 11px; color: var(--muted); font-size: .85rem; }
-    .book-description { margin: 0; color: #475467; font-size: .93rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
-    .empty-state {
-      grid-column: 1 / -1; padding: 42px 20px; border: 1px dashed #c8d3e2;
-      border-radius: 13px; color: var(--muted); text-align: center; line-height: 1.6;
-    }
-    footer { padding: 21px 6vw; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: .85rem; line-height: 1.7; }
-    footer a { color: var(--blue); }
-    .overlay {
-      position: fixed; z-index: 5; inset: 0; display: grid; place-items: center;
-      padding: 18px; background: rgba(16,24,40,.55);
-    }
-    .modal {
-      width: min(510px, 100%); max-height: 90vh; overflow-y: auto; padding: 23px;
-      border-radius: 14px; background: white; box-shadow: 0 20px 70px rgba(0,0,0,.2);
-    }
-    .modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 17px; }
-    .modal-header h2 { margin: 0; color: var(--blue-dark); font-family: Georgia, "Times New Roman", serif; font-weight: 500; }
-    .close-button { border: 0; background: transparent; color: var(--muted); font-size: 1.5rem; line-height: 1; }
-    .modal-copy { color: var(--muted); line-height: 1.6; }
-    .modal-copy a { color: var(--blue); }
-    .primary-button {
-      width: 100%; margin-top: 9px; padding: 12px 16px; border: 0; border-radius: 8px;
-      background: var(--blue); color: white; font-weight: 700;
-    }
-    .primary-button:hover { background: var(--blue-dark); }
-    .secondary-button {
-      width: 100%; margin-top: 8px; padding: 11px 16px; border: 1px solid var(--line);
-      border-radius: 8px; background: white; color: var(--ink); font-weight: 650;
-    }
-    @media (max-width: 900px) { .search-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); } .search-wrap { grid-column: 1 / -1; } }
-    @media (max-width: 520px) {
-      .topbar { padding: 11px 5vw; } .dropdown { right: 5vw; } main { width: 90vw; }
-      .hero { padding-top: 43px; } .search-panel { grid-template-columns: 1fr; }
-      .search-wrap { grid-column: auto; } .section-heading { align-items: flex-start; flex-direction: column; }
-    }
+    :root{--blue:#174ea6;--dark:#123b7a;--light:#eaf2ff;--bg:#f5f8fc;--ink:#1d2939;--muted:#667085;--line:#e1e7f0;--green:#18794e;--red:#b42318}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}
+    .topbar{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:13px 6vw;background:var(--blue);color:white;box-shadow:0 2px 10px #123b7a29}.brand{display:flex;align-items:center;gap:11px;font-weight:750}.brand-mark{width:38px;height:38px;display:grid;place-items:center;border:1px solid #ffffff8c;border-radius:10px;font-size:19px}
+    .menu-button{width:42px;height:42px;display:grid;place-content:center;gap:5px;border:1px solid #ffffff66;border-radius:9px;background:transparent;color:white}.menu-button span{width:19px;height:2px;border-radius:2px;background:white}.menu-button:hover{background:#ffffff1f}
+    .dropdown{position:absolute;right:6vw;top:calc(100% + 8px);width:230px;padding:7px;background:white;border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 30px #10182826}.dropdown[hidden],.overlay[hidden]{display:none}.dropdown button{width:100%;padding:11px 12px;border:0;border-radius:7px;background:white;color:var(--ink);text-align:left;font-weight:650}.dropdown button:hover{color:var(--blue);background:var(--light)}
+    main{width:min(1050px,88vw);margin:auto}.hero{padding:57px 0 30px;text-align:center}.eyebrow{color:var(--blue);font-size:.78rem;font-weight:750;letter-spacing:.15em;text-transform:uppercase}h1{margin:12px 0;color:var(--dark);font:500 clamp(2.15rem,5vw,3.5rem)/1.1 Georgia,"Times New Roman",serif}.hero p{max-width:560px;margin:0 auto;color:var(--muted);line-height:1.6}
+    .search-panel{display:grid;grid-template-columns:minmax(220px,1fr) repeat(3,minmax(145px,190px));gap:11px;padding:17px;background:white;border:1px solid var(--line);border-radius:13px;box-shadow:0 8px 26px #1018280d}.search-wrap{position:relative}.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1.2rem}input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);outline:none}.search-wrap input{padding-left:40px}input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #174ea622}.catalog-status{min-height:1.3em;margin:12px 2px 0;color:var(--muted);font-size:.84rem}.catalog-status.error{color:var(--red)}
+    .section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:30px 0 15px}.section-heading h2{margin:0;color:var(--dark);font:500 1.7rem Georgia,"Times New Roman",serif}.count{color:var(--muted);font-size:.9rem}.book-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:15px;padding-bottom:55px}.book-card{padding:19px;background:white;border:1px solid var(--line);border-radius:12px}.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.tags{display:flex;flex-wrap:wrap;gap:6px}.area-tag{display:inline-block;padding:5px 9px;border-radius:20px;background:var(--light);color:var(--dark);font-size:.76rem;font-weight:700}.availability{flex:0 0 auto;padding:5px 8px;border-radius:20px;font-size:.74rem;font-weight:700}.available{color:var(--green);background:#e8f5ee}.unavailable{color:var(--red);background:#fcebea}.book-card h3{margin:16px 0 7px;color:var(--dark);font:600 1.3rem Georgia,"Times New Roman",serif;overflow-wrap:anywhere}.book-number{margin:0 0 11px;color:var(--muted);font-size:.85rem}.book-description{margin:0;color:#475467;font-size:.93rem;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}.empty-state{grid-column:1/-1;padding:42px 20px;border:1px dashed #c8d3e2;border-radius:13px;color:var(--muted);text-align:center;line-height:1.6}
+    footer{padding:21px 6vw;border-top:1px solid var(--line);color:var(--muted);text-align:center;font-size:.85rem;line-height:1.7}.overlay{position:fixed;z-index:5;inset:0;display:grid;place-items:center;padding:18px;background:#1018288c}.modal{width:min(510px,100%);max-height:90vh;overflow:auto;padding:23px;border-radius:14px;background:white;box-shadow:0 20px 70px #0003}.modal-header{display:flex;justify-content:space-between;gap:12px;margin-bottom:17px}.modal-header h2{margin:0;color:var(--dark);font:500 1.5rem Georgia,"Times New Roman",serif}.close-button{border:0;background:transparent;color:var(--muted);font-size:1.5rem}.modal-copy{color:var(--muted);line-height:1.6}.modal-copy a{color:var(--blue)}.primary-button,.secondary-button{width:100%;margin-top:8px;padding:12px 16px;border-radius:8px;font-weight:700}.primary-button{border:0;background:var(--blue);color:white}.primary-button:hover{background:var(--dark)}.secondary-button{border:1px solid var(--line);background:white;color:var(--ink)}
+    @media(max-width:900px){.search-panel{grid-template-columns:repeat(2,minmax(0,1fr))}.search-wrap{grid-column:1/-1}}@media(max-width:520px){.topbar{padding:11px 5vw}.dropdown{right:5vw}main{width:90vw}.hero{padding-top:43px}.search-panel{grid-template-columns:1fr}.search-wrap{grid-column:auto}.section-heading{align-items:flex-start;flex-direction:column}}
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="brand"><span class="brand-mark" aria-hidden="true">▤</span><span>Biblioteca SJS</span></div>
-    <button class="menu-button" id="menuButton" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="dropdownMenu">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="dropdown" id="dropdownMenu" hidden>
-      <button id="creditsButton" type="button">Créditos</button>
-      <button id="codeButton" type="button">Código</button>
-    </nav>
+    <button class="menu-button" id="menuButton" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="dropdownMenu"><span></span><span></span><span></span></button>
+    <nav class="dropdown" id="dropdownMenu" hidden><button id="creditsButton" type="button">Créditos</button><button id="codeButton" type="button">Código</button></nav>
   </header>
-
   <main>
-    <section class="hero">
-      <div class="eyebrow">Biblioteca SJS</div>
-      <h1>Biblioteca San José de la Sierra</h1>
-      <p>Busca libros en el catálogo y consulta su disponibilidad.</p>
-    </section>
-
+    <section class="hero"><div class="eyebrow">Biblioteca SJS</div><h1>Biblioteca San José de la Sierra</h1><p>Busca libros en el catálogo y consulta su disponibilidad.</p></section>
     <section class="search-panel" aria-label="Buscar y filtrar libros">
-      <div class="search-wrap">
-        <span class="search-icon" aria-hidden="true">⌕</span>
-        <input id="searchInput" type="search" placeholder="Buscar por nombre, clasificación o número…" aria-label="Buscar libros" />
-      </div>
+      <div class="search-wrap"><span class="search-icon" aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Buscar por nombre, clasificación o número…" aria-label="Buscar libros" /></div>
       <select id="classificationFilter" aria-label="Filtrar por clasificación"><option value="">Todas las clasificaciones</option></select>
       <select id="categoryFilter" aria-label="Filtrar por categoría"><option value="">Todas las categorías</option></select>
-      <select id="availabilityFilter" aria-label="Filtrar por disponibilidad">
-        <option value="">Cualquier disponibilidad</option><option value="true">Disponible</option><option value="false">No disponible</option>
-      </select>
+      <select id="availabilityFilter" aria-label="Filtrar por disponibilidad"><option value="">Cualquier disponibilidad</option><option value="true">Disponible</option><option value="false">No disponible</option></select>
     </section>
     <p class="catalog-status" id="catalogStatus" role="status" aria-live="polite">Conectando con el catálogo…</p>
-
-    <section aria-labelledby="catalogTitle">
-      <div class="section-heading">
-        <h2 id="catalogTitle">Catálogo</h2>
-        <span class="count" id="bookCount"></span>
-      </div>
-      <div class="book-list" id="bookList"></div>
-    </section>
+    <section aria-labelledby="catalogTitle"><div class="section-heading"><h2 id="catalogTitle">Catálogo</h2><span class="count" id="bookCount"></span></div><div class="book-list" id="bookList"></div></section>
   </main>
+  <footer>Biblioteca SJS · San José de la Sierra<br />Créditos: Emmanuel More · Código alojado en GitHub</footer>
 
-  <footer>
-    Biblioteca SJS · San José de la Sierra<br />
-    Créditos: Emmanuel More · Código alojado en GitHub
-  </footer>
-
-  <div class="overlay" id="licenseOverlay" hidden>
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="licenseTitle">
-      <div class="modal-header">
-        <h2 id="licenseTitle">Licencia MIT</h2>
-        <button class="close-button" id="closeLicense" type="button" aria-label="Cerrar">×</button>
-      </div>
-      <p class="modal-copy">Antes de abrir el repositorio, confirma que entiendes que el proyecto se ofrece bajo la licencia MIT. Esta licencia permite usar, copiar, modificar, distribuir, sublicenciar y vender copias del software, siempre que se incluya el aviso de copyright y el texto de la licencia. El software se proporciona “tal cual”, sin garantía.</p>
-      <p class="modal-copy">Puedes <a href="https://github.com/bricenolabs/SanJoseBiblioteca/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">leer el texto de la licencia MIT</a>.</p>
-      <button class="primary-button" id="acceptLicense" type="button">Aceptar y abrir el repositorio</button>
-      <button class="secondary-button" id="cancelLicense" type="button">Cancelar</button>
-    </section>
-  </div>
-
-  <div class="overlay" id="creditsOverlay" hidden>
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="creditsTitle">
-      <div class="modal-header">
-        <h2 id="creditsTitle">Créditos</h2>
-        <button class="close-button" id="closeCredits" type="button" aria-label="Cerrar">×</button>
-      </div>
-      <p class="modal-copy">Diseño y créditos: Emmanuel More.<br />El código fuente del sitio está alojado en GitHub.</p>
-      <button class="secondary-button" id="closeCreditsButton" type="button">Cerrar</button>
-    </section>
-  </div>
+  <div class="overlay" id="licenseOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="licenseTitle">
+    <div class="modal-header"><h2 id="licenseTitle">Licencia MIT</h2><button class="close-button" id="closeLicense" type="button" aria-label="Cerrar">×</button></div>
+    <p class="modal-copy">Antes de abrir el repositorio, confirma que entiendes que el proyecto se ofrece bajo la licencia MIT. Esta licencia permite usar, copiar, modificar, distribuir, sublicenciar y vender copias del software, siempre que se incluya el aviso de copyright y el texto de la licencia. El software se proporciona “tal cual”, sin garantía.</p>
+    <p class="modal-copy">Puedes <a href="https://github.com/bricenolabs/SanJoseBiblioteca/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">leer el texto de la licencia MIT</a>.</p>
+    <button class="primary-button" id="acceptLicense" type="button">Aceptar y abrir el repositorio</button><button class="secondary-button" id="cancelLicense" type="button">Cancelar</button>
+  </section></div>
+  <div class="overlay" id="creditsOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="creditsTitle">
+    <div class="modal-header"><h2 id="creditsTitle">Créditos</h2><button class="close-button" id="closeCredits" type="button" aria-label="Cerrar">×</button></div>
+    <p class="modal-copy">Diseño y créditos: Emmanuel More.<br />El código fuente del sitio está alojado en GitHub.</p><button class="secondary-button" id="closeCreditsButton" type="button">Cerrar</button>
+  </section></div>
 
   <script>
-    // Catálogo público de solo lectura servido por Google Apps Script.
-    const CATALOG_API = "https://script.google.com/macros/s/AKfycbw3SgHtWa_HixUfOF0Jn53Jg0C-fgXGBRVZ_w9-BfhEkYxUDWy5Ucygt1VBvD25LaTmHQ/exec";
+    // JSONP evita que el navegador bloquee la lectura de Apps Script por CORS.
+    const CATALOG_API = "https://script.google.com/macros/s/AKfycbx009hyjwmy3gEO5tBgocm-hKEIRlz4xAg8BYEoDnR89rU5B5_AtqI0HBxNfSTIXTOcPA/exec";
     const REPOSITORY_URL = "https://github.com/bricenolabs/SanJoseBiblioteca";
-    const REFRESH_INTERVAL_MS = 60_000;
-
-    const menuButton = document.getElementById("menuButton");
-    const dropdownMenu = document.getElementById("dropdownMenu");
+    const REFRESH_INTERVAL_MS = 60000;
     const searchInput = document.getElementById("searchInput");
     const classificationFilter = document.getElementById("classificationFilter");
     const categoryFilter = document.getElementById("categoryFilter");
@@ -236,184 +61,59 @@
     const bookList = document.getElementById("bookList");
     const bookCount = document.getElementById("bookCount");
     const catalogStatus = document.getElementById("catalogStatus");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    const menuButton = document.getElementById("menuButton");
     const licenseOverlay = document.getElementById("licenseOverlay");
     const creditsOverlay = document.getElementById("creditsOverlay");
-
     let books = [];
     let hasLoadedCatalog = false;
     let isLoading = false;
 
-    function escapeHTML(value) {
-      return String(value ?? "").replace(/[&<>"']/g, character => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-      })[character]);
+    function escapeHTML(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+    function getField(record,names){const entries=Object.entries(record||{});for(const name of names){const found=entries.find(([key])=>key.trim().toLocaleLowerCase("es")===name);if(found&&found[1]!==null&&found[1]!==undefined)return found[1]}return ""}
+    function toAvailability(value){if(typeof value==="boolean")return value;const v=String(value).trim().toLocaleLowerCase("es");if(["true","1","sí","si","disponible","yes"].includes(v))return true;if(["false","0","no","no disponible","unavailable"].includes(v))return false;return null}
+    function normalizeBook(record){
+      const name=getField(record,["nombre","name","titulo","título","title"]), number=getField(record,["numero_id","número_id","numero","número","codigo","código","id","number","code"]);
+      const classification=getField(record,["clasificacion","clasificación","classification","area","área"]), category=getField(record,["categoria","categoría","category","tipo"]);
+      const description=getField(record,["descripcion","descripción","description","resumen"]), available=toAvailability(getField(record,["disponible","availability","available"]));
+      const known=["numero_id","número_id","numero","número","codigo","código","id","nombre","name","titulo","título","title","clasificacion","clasificación","classification","area","área","categoria","categoría","category","tipo","descripcion","descripción","description","resumen","disponible","availability","available"];
+      const extra=Object.entries(record||{}).filter(([key,value])=>!known.includes(key.trim().toLocaleLowerCase("es"))&&value!==""&&value!==null&&value!==undefined).map(([key,value])=>`${key}: ${value}`);
+      return {name:String(name||"Libro sin nombre"),number:String(number??""),classification:String(classification||"Sin clasificación"),category:String(category||"Otro"),description:[description,...extra].filter(Boolean).join(" · "),available};
     }
-
-    function getField(record, names) {
-      const entries = Object.entries(record || {});
-      for (const name of names) {
-        const found = entries.find(([key]) => key.trim().toLocaleLowerCase("es") === name);
-        if (found && found[1] !== null && found[1] !== undefined) return found[1];
-      }
-      return "";
+    function updateSelect(select,label,values){const previous=select.value;select.replaceChildren(new Option(label,""));[...new Set(values.map(v=>String(v).trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es")).forEach(v=>select.add(new Option(v,v)));if([...select.options].some(o=>o.value===previous))select.value=previous}
+    function renderBooks(){
+      updateSelect(classificationFilter,"Todas las clasificaciones",books.map(b=>b.classification));updateSelect(categoryFilter,"Todas las categorías",books.map(b=>b.category));
+      const query=searchInput.value.trim().toLocaleLowerCase("es"), classification=classificationFilter.value, category=categoryFilter.value, availability=availabilityFilter.value;
+      const filtered=books.filter(b=>[b.name,b.number,b.classification,b.category,b.description].join(" ").toLocaleLowerCase("es").includes(query)&&(!classification||b.classification===classification)&&(!category||b.category===category)&&(availability===""||String(b.available)===availability));
+      bookCount.textContent=`${filtered.length} ${filtered.length===1?"libro":"libros"}`;
+      if(!filtered.length){const message=!hasLoadedCatalog?"Conectando con el catálogo…":books.length===0?"Todavía no hay libros en el catálogo.":"No se encontraron libros con esa búsqueda o esos filtros.";bookList.innerHTML=`<div class="empty-state">${escapeHTML(message)}</div>`;return}
+      bookList.innerHTML=filtered.map(b=>{const status=b.available===null?"Disponibilidad no indicada":b.available?"Disponible":"No disponible",statusClass=b.available===null?"":b.available?"available":"unavailable";return `<article class="book-card"><div class="card-top"><div class="tags"><span class="area-tag">${escapeHTML(b.classification)}</span><span class="area-tag">${escapeHTML(b.category)}</span></div><span class="availability ${statusClass}">${escapeHTML(status)}</span></div><h3>${escapeHTML(b.name)}</h3>${b.number?`<p class="book-number">N.º ${escapeHTML(b.number)}</p>`:""}${b.description?`<p class="book-description">${escapeHTML(b.description)}</p>`:""}</article>`}).join("");
     }
-
-    function toAvailability(value) {
-      if (typeof value === "boolean") return value;
-      const normalized = String(value).trim().toLocaleLowerCase("es");
-      if (["true", "1", "sí", "si", "disponible", "yes"].includes(normalized)) return true;
-      if (["false", "0", "no", "no disponible", "unavailable"].includes(normalized)) return false;
-      return null;
+    function loadCatalog(){
+      if(isLoading)return;isLoading=true;
+      const callbackName=`catalogCallback_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+      const script=document.createElement("script");let finished=false;
+      const cleanup=()=>{if(finished)return;finished=true;clearTimeout(timeout);delete window[callbackName];script.remove();isLoading=false};
+      const timeout=setTimeout(()=>{cleanup();showLoadError("La solicitud al catálogo tardó demasiado. Vuelve a intentarlo en un momento.")},20000);
+      window[callbackName]=(data)=>{cleanup();if(!Array.isArray(data)){showLoadError("Apps Script no devolvió una lista JSON válida.");return}books=data.filter(record=>record&&typeof record==="object"&&!record.error).map(normalizeBook);hasLoadedCatalog=true;catalogStatus.textContent=`Catálogo sincronizado · ${new Date().toLocaleTimeString("es",{hour:"2-digit",minute:"2-digit"})}`;catalogStatus.classList.remove("error");renderBooks()};
+      script.onerror=()=>{cleanup();showLoadError("No se pudo leer la respuesta de Apps Script. Comprueba que publicaste la nueva versión con soporte JSONP y acceso para cualquier persona.")};
+      script.src=`${CATALOG_API}${CATALOG_API.includes("?")?"&":"?"}callback=${encodeURIComponent(callbackName)}&_=${Date.now()}`;
+      document.head.appendChild(script);
     }
-
-    // Mapea encabezados alternativos y tolera columnas opcionales o reordenadas.
-    function normalizeBook(record) {
-      const name = getField(record, ["nombre", "name", "titulo", "título", "title"]);
-      const number = getField(record, ["numero_id", "número_id", "numero", "número", "codigo", "código", "id", "number", "code"]);
-      const classification = getField(record, ["clasificacion", "clasificación", "classification", "area", "área"]);
-      const categoryValue = getField(record, ["categoria", "categoría", "category", "tipo"]);
-      const description = getField(record, ["descripcion", "descripción", "description", "resumen"]);
-      const availableValue = getField(record, ["disponible", "availability", "available"]);
-      const available = toAvailability(availableValue);
-      const details = Object.entries(record || {})
-        .filter(([key, value]) => !["numero_id", "nombre", "clasificacion", "categoria", "descripcion", "disponible"].includes(key.trim().toLocaleLowerCase("es")) && value !== "" && value !== null && value !== undefined)
-        .map(([key, value]) => `${key}: ${value}`);
-
-      return {
-        name: String(name || "Libro sin nombre"),
-        number: String(number ?? ""),
-        classification: String(classification || "Sin clasificación"),
-        category: String(categoryValue || "Otro"),
-        description: [description, ...details].filter(Boolean).join(" · "),
-        available
-      };
-    }
-
-    function updateSelect(select, label, values) {
-      const previous = select.value;
-      select.replaceChildren(new Option(label, ""));
-      [...new Set(values.map(value => String(value).trim()).filter(Boolean))]
-        .sort((a, b) => a.localeCompare(b, "es"))
-        .forEach(value => select.add(new Option(value, value)));
-      if ([...select.options].some(option => option.value === previous)) select.value = previous;
-    }
-
-    function updateFilters() {
-      updateSelect(classificationFilter, "Todas las clasificaciones", books.map(book => book.classification));
-      // Si Apps Script no devuelve categoría, estos registros se agrupan como "Otro".
-      updateSelect(categoryFilter, "Todas las categorías", books.map(book => book.category));
-    }
-
-    function renderBooks() {
-      updateFilters();
-      const query = searchInput.value.trim().toLocaleLowerCase("es");
-      const selectedClassification = classificationFilter.value;
-      const selectedCategory = categoryFilter.value;
-      const selectedAvailability = availabilityFilter.value;
-
-      const filtered = books.filter(book => {
-        const searchable = [book.name, book.number, book.classification, book.category, book.description]
-          .join(" ").toLocaleLowerCase("es");
-        return searchable.includes(query)
-          && (!selectedClassification || book.classification === selectedClassification)
-          && (!selectedCategory || book.category === selectedCategory)
-          && (selectedAvailability === "" || String(book.available) === selectedAvailability);
-      });
-
-      bookCount.textContent = `${filtered.length} ${filtered.length === 1 ? "libro" : "libros"}`;
-      if (filtered.length === 0) {
-        const message = !hasLoadedCatalog
-          ? "Conectando con el catálogo…"
-          : books.length === 0
-            ? "Todavía no hay libros en el catálogo."
-            : "No se encontraron libros con esa búsqueda o esos filtros.";
-        bookList.innerHTML = `<div class="empty-state">${escapeHTML(message)}</div>`;
-        return;
-      }
-
-      bookList.innerHTML = filtered.map(book => {
-        const statusText = book.available === null ? "Disponibilidad no indicada" : book.available ? "Disponible" : "No disponible";
-        const statusClass = book.available === null ? "" : book.available ? "available" : "unavailable";
-        return `<article class="book-card">
-          <div class="card-top"><div class="tags">
-            <span class="area-tag">${escapeHTML(book.classification)}</span>
-            <span class="area-tag">${escapeHTML(book.category)}</span>
-          </div><span class="availability ${statusClass}">${escapeHTML(statusText)}</span></div>
-          <h3>${escapeHTML(book.name)}</h3>
-          ${book.number ? `<p class="book-number">N.º ${escapeHTML(book.number)}</p>` : ""}
-          ${book.description ? `<p class="book-description">${escapeHTML(book.description)}</p>` : ""}
-        </article>`;
-      }).join("");
-    }
-
-    async function loadCatalog() {
-      if (isLoading) return;
-      isLoading = true;
-      try {
-        const response = await fetch(CATALOG_API, { method: "GET", cache: "no-store", redirect: "follow" });
-        if (!response.ok) throw new Error(`El servidor respondió ${response.status}`);
-        const data = await response.json();
-        if (!Array.isArray(data)) throw new Error("La respuesta de Apps Script no es una lista JSON.");
-        books = data.filter(record => record && typeof record === "object" && !record.error).map(normalizeBook);
-        hasLoadedCatalog = true;
-        catalogStatus.textContent = `Catálogo sincronizado · ${new Date().toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit" })}`;
-        catalogStatus.classList.remove("error");
-        renderBooks();
-      } catch (error) {
-        console.error("No se pudo cargar el catálogo:", error);
-        catalogStatus.textContent = "No se pudo conectar con el catálogo. Comprueba que la implementación de Apps Script permita acceso de lectura público.";
-        catalogStatus.classList.add("error");
-        if (!hasLoadedCatalog) {
-          books = [];
-          renderBooks();
-        }
-      } finally {
-        isLoading = false;
-      }
-    }
-
-    function closeMenu() {
-      dropdownMenu.hidden = true;
-      menuButton.setAttribute("aria-expanded", "false");
-    }
-    function openOverlay(overlay) { overlay.hidden = false; }
-    function closeOverlay(overlay) { overlay.hidden = true; }
-
-    menuButton.addEventListener("click", () => {
-      const opening = dropdownMenu.hidden;
-      dropdownMenu.hidden = !opening;
-      menuButton.setAttribute("aria-expanded", String(opening));
-    });
-    document.getElementById("creditsButton").addEventListener("click", () => { closeMenu(); openOverlay(creditsOverlay); });
-    document.getElementById("codeButton").addEventListener("click", () => { closeMenu(); openOverlay(licenseOverlay); });
-    document.getElementById("closeLicense").addEventListener("click", () => closeOverlay(licenseOverlay));
-    document.getElementById("cancelLicense").addEventListener("click", () => closeOverlay(licenseOverlay));
-    document.getElementById("acceptLicense").addEventListener("click", () => {
-      closeOverlay(licenseOverlay);
-      window.open(REPOSITORY_URL, "_blank", "noopener,noreferrer");
-    });
-    document.getElementById("closeCredits").addEventListener("click", () => closeOverlay(creditsOverlay));
-    document.getElementById("closeCreditsButton").addEventListener("click", () => closeOverlay(creditsOverlay));
-    for (const overlay of [licenseOverlay, creditsOverlay]) {
-      overlay.addEventListener("click", event => { if (event.target === overlay) closeOverlay(overlay); });
-    }
-    document.addEventListener("click", event => {
-      if (!dropdownMenu.hidden && !dropdownMenu.contains(event.target) && !menuButton.contains(event.target)) closeMenu();
-    });
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        closeMenu(); closeOverlay(licenseOverlay); closeOverlay(creditsOverlay);
-      }
-    });
-    searchInput.addEventListener("input", renderBooks);
-    classificationFilter.addEventListener("change", renderBooks);
-    categoryFilter.addEventListener("change", renderBooks);
-    availabilityFilter.addEventListener("change", renderBooks);
-    document.addEventListener("visibilitychange", () => { if (!document.hidden) loadCatalog(); });
-
-    renderBooks();
-    loadCatalog();
-    window.setInterval(loadCatalog, REFRESH_INTERVAL_MS);
+    function showLoadError(message){catalogStatus.textContent=message;catalogStatus.classList.add("error");if(!hasLoadedCatalog){books=[];renderBooks()}}
+    function closeMenu(){dropdownMenu.hidden=true;menuButton.setAttribute("aria-expanded","false")}
+    function closeOverlay(overlay){overlay.hidden=true}
+    menuButton.addEventListener("click",()=>{const opening=dropdownMenu.hidden;dropdownMenu.hidden=!opening;menuButton.setAttribute("aria-expanded",String(opening))});
+    document.getElementById("creditsButton").addEventListener("click",()=>{closeMenu();creditsOverlay.hidden=false});document.getElementById("codeButton").addEventListener("click",()=>{closeMenu();licenseOverlay.hidden=false});
+    document.getElementById("closeLicense").addEventListener("click",()=>closeOverlay(licenseOverlay));document.getElementById("cancelLicense").addEventListener("click",()=>closeOverlay(licenseOverlay));
+    document.getElementById("acceptLicense").addEventListener("click",()=>{closeOverlay(licenseOverlay);window.open(REPOSITORY_URL,"_blank","noopener,noreferrer")});
+    document.getElementById("closeCredits").addEventListener("click",()=>closeOverlay(creditsOverlay));document.getElementById("closeCreditsButton").addEventListener("click",()=>closeOverlay(creditsOverlay));
+    for(const overlay of [licenseOverlay,creditsOverlay])overlay.addEventListener("click",event=>{if(event.target===overlay)closeOverlay(overlay)});
+    document.addEventListener("click",event=>{if(!dropdownMenu.hidden&&!dropdownMenu.contains(event.target)&&!menuButton.contains(event.target))closeMenu()});
+    document.addEventListener("keydown",event=>{if(event.key==="Escape"){closeMenu();closeOverlay(licenseOverlay);closeOverlay(creditsOverlay)}});
+    searchInput.addEventListener("input",renderBooks);classificationFilter.addEventListener("change",renderBooks);categoryFilter.addEventListener("change",renderBooks);availabilityFilter.addEventListener("change",renderBooks);
+    document.addEventListener("visibilitychange",()=>{if(!document.hidden)loadCatalog()});
+    renderBooks();loadCatalog();window.setInterval(loadCatalog,REFRESH_INTERVAL_MS);
   </script>
 </body>
 </html>
