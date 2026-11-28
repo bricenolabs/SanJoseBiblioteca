@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#174ea6" />
+  <meta name="description" content="Catálogo de la Biblioteca San José de la Sierra." />
   <title>Biblioteca San José de la Sierra</title>
   <style>
     :root {
@@ -20,388 +21,145 @@
     }
 
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       background: var(--background);
       color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-
-    button, input, select, textarea { font: inherit; }
+    button, input, select { font: inherit; }
     button { cursor: pointer; }
-
     .topbar {
       position: relative;
       z-index: 3;
-      background: var(--blue);
-      color: var(--white);
-      padding: 13px 6vw;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      box-shadow: 0 2px 10px rgba(18, 59, 122, .16);
+      padding: 13px 6vw;
+      color: var(--white);
+      background: var(--blue);
+      box-shadow: 0 2px 10px rgba(18,59,122,.16);
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      font-weight: 750;
-    }
-
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 750; }
     .brand-mark {
-      width: 38px;
-      height: 38px;
-      border: 1px solid rgba(255,255,255,.55);
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      font-size: 19px;
+      width: 38px; height: 38px; display: grid; place-items: center;
+      border: 1px solid rgba(255,255,255,.55); border-radius: 10px; font-size: 19px;
     }
-
     .menu-button {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-content: center;
-      gap: 5px;
-      border: 1px solid rgba(255,255,255,.4);
-      border-radius: 9px;
-      background: transparent;
-      color: white;
+      width: 42px; height: 42px; display: grid; place-content: center; gap: 5px;
+      border: 1px solid rgba(255,255,255,.4); border-radius: 9px;
+      background: transparent; color: white;
     }
-
     .menu-button:hover { background: rgba(255,255,255,.12); }
-
-    .menu-button span {
-      width: 19px;
-      height: 2px;
-      border-radius: 2px;
-      background: white;
-    }
-
+    .menu-button span { width: 19px; height: 2px; border-radius: 2px; background: white; }
     .dropdown {
-      position: absolute;
-      right: 6vw;
-      top: calc(100% + 8px);
-      width: 210px;
-      padding: 7px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 11px;
-      box-shadow: 0 12px 30px rgba(16, 24, 40, .15);
+      position: absolute; right: 6vw; top: calc(100% + 8px); width: 230px;
+      padding: 7px; background: white; border: 1px solid var(--line);
+      border-radius: 11px; box-shadow: 0 12px 30px rgba(16,24,40,.15);
     }
-
-    .dropdown[hidden] { display: none; }
-
+    .dropdown[hidden], .overlay[hidden] { display: none; }
     .dropdown button {
-      width: 100%;
-      padding: 11px 12px;
-      border: 0;
-      border-radius: 7px;
-      background: white;
-      color: var(--ink);
-      text-align: left;
-      font-weight: 650;
+      width: 100%; padding: 11px 12px; border: 0; border-radius: 7px;
+      background: white; color: var(--ink); text-align: left; font-weight: 650;
     }
-
-    .dropdown button:hover {
-      color: var(--blue);
-      background: var(--blue-light);
-    }
-
+    .dropdown button:hover { color: var(--blue); background: var(--blue-light); }
     main { width: min(1050px, 88vw); margin: 0 auto; }
-
-    .hero {
-      padding: 57px 0 30px;
-      text-align: center;
-    }
-
-    .eyebrow {
-      color: var(--blue);
-      font-size: .78rem;
-      font-weight: 750;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-    }
-
+    .hero { padding: 57px 0 30px; text-align: center; }
+    .eyebrow { color: var(--blue); font-size: .78rem; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; }
     h1 {
-      margin: 12px 0;
-      color: var(--blue-dark);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.15rem, 5vw, 3.5rem);
-      font-weight: 500;
-      line-height: 1.1;
+      margin: 12px 0; color: var(--blue-dark); font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.15rem, 5vw, 3.5rem); font-weight: 500; line-height: 1.1;
     }
-
-    .hero p {
-      max-width: 560px;
-      margin: 0 auto;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
+    .hero p { max-width: 560px; margin: 0 auto; color: var(--muted); line-height: 1.6; }
     .search-panel {
-      display: grid;
-      grid-template-columns: minmax(220px, 1fr) 210px 200px;
-      gap: 11px;
-      padding: 17px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 13px;
-      box-shadow: 0 8px 26px rgba(16, 24, 40, .05);
+      display: grid; grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(145px, 190px));
+      gap: 11px; padding: 17px; background: white; border: 1px solid var(--line);
+      border-radius: 13px; box-shadow: 0 8px 26px rgba(16,24,40,.05);
     }
-
     .search-wrap { position: relative; }
-
-    .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      font-size: 1.2rem;
+    .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.2rem; }
+    input, select {
+      width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px;
+      background: white; color: var(--ink); outline: none;
     }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 11px 12px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: white;
-      color: var(--ink);
-      outline: none;
-    }
-
     .search-wrap input { padding-left: 40px; }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(23, 78, 166, .13);
-    }
-
+    input:focus, select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(23,78,166,.13); }
+    .catalog-status { min-height: 1.3em; margin: 12px 2px 0; color: var(--muted); font-size: .84rem; }
+    .catalog-status.error { color: var(--red); }
     .section-heading {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 34px 0 15px;
+      display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 30px 0 15px;
     }
-
     .section-heading h2 {
-      margin: 0;
-      color: var(--blue-dark);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.7rem;
-      font-weight: 500;
+      margin: 0; color: var(--blue-dark); font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.7rem; font-weight: 500;
     }
-
     .count { color: var(--muted); font-size: .9rem; }
-
     .book-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 15px;
-      padding-bottom: 55px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 15px; padding-bottom: 55px;
     }
-
-    .book-card {
-      padding: 19px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-    }
-
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
+    .book-card { padding: 19px; background: white; border: 1px solid var(--line); border-radius: 12px; }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .area-tag {
-      display: inline-block;
-      padding: 5px 9px;
-      border-radius: 20px;
-      background: var(--blue-light);
-      color: var(--blue-dark);
-      font-size: .76rem;
-      font-weight: 700;
+      display: inline-block; padding: 5px 9px; border-radius: 20px; background: var(--blue-light);
+      color: var(--blue-dark); font-size: .76rem; font-weight: 700;
     }
-
-    .availability {
-      flex: 0 0 auto;
-      padding: 5px 8px;
-      border-radius: 20px;
-      font-size: .74rem;
-      font-weight: 700;
-    }
-
+    .availability { flex: 0 0 auto; padding: 5px 8px; border-radius: 20px; font-size: .74rem; font-weight: 700; }
     .available { color: var(--green); background: #e8f5ee; }
     .unavailable { color: var(--red); background: #fcebea; }
-
     .book-card h3 {
-      margin: 16px 0 7px;
-      color: var(--blue-dark);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.3rem;
-      overflow-wrap: anywhere;
+      margin: 16px 0 7px; color: var(--blue-dark); font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.3rem; overflow-wrap: anywhere;
     }
-
-    .book-number {
-      margin: 0 0 11px;
-      color: var(--muted);
-      font-size: .85rem;
-    }
-
-    .book-description {
-      margin: 0;
-      color: #475467;
-      font-size: .93rem;
-      line-height: 1.55;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-
+    .book-number { margin: 0 0 11px; color: var(--muted); font-size: .85rem; }
+    .book-description { margin: 0; color: #475467; font-size: .93rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
     .empty-state {
-      grid-column: 1 / -1;
-      padding: 42px 20px;
-      border: 1px dashed #c8d3e2;
-      border-radius: 13px;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.6;
+      grid-column: 1 / -1; padding: 42px 20px; border: 1px dashed #c8d3e2;
+      border-radius: 13px; color: var(--muted); text-align: center; line-height: 1.6;
     }
-
+    footer { padding: 21px 6vw; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: .85rem; line-height: 1.7; }
+    footer a { color: var(--blue); }
     .overlay {
-      position: fixed;
-      z-index: 5;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      padding: 18px;
-      background: rgba(16, 24, 40, .55);
+      position: fixed; z-index: 5; inset: 0; display: grid; place-items: center;
+      padding: 18px; background: rgba(16,24,40,.55);
     }
-
-    .overlay[hidden] { display: none; }
-
     .modal {
-      width: min(510px, 100%);
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 23px;
-      border-radius: 14px;
-      background: white;
-      box-shadow: 0 20px 70px rgba(0,0,0,.2);
+      width: min(510px, 100%); max-height: 90vh; overflow-y: auto; padding: 23px;
+      border-radius: 14px; background: white; box-shadow: 0 20px 70px rgba(0,0,0,.2);
     }
-
-    .modal-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 17px;
-    }
-
-    .modal-header h2 {
-      margin: 0;
-      color: var(--blue-dark);
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 500;
-    }
-
-    .close-button {
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      font-size: 1.5rem;
-      line-height: 1;
-    }
-
-    .form-field { margin: 13px 0; }
-
-    .form-field label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: .88rem;
-      font-weight: 700;
-    }
-
-    textarea { min-height: 90px; resize: vertical; }
-
+    .modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 17px; }
+    .modal-header h2 { margin: 0; color: var(--blue-dark); font-family: Georgia, "Times New Roman", serif; font-weight: 500; }
+    .close-button { border: 0; background: transparent; color: var(--muted); font-size: 1.5rem; line-height: 1; }
+    .modal-copy { color: var(--muted); line-height: 1.6; }
+    .modal-copy a { color: var(--blue); }
     .primary-button {
-      width: 100%;
-      margin-top: 7px;
-      padding: 12px 16px;
-      border: 0;
-      border-radius: 8px;
-      background: var(--blue);
-      color: white;
-      font-weight: 700;
+      width: 100%; margin-top: 9px; padding: 12px 16px; border: 0; border-radius: 8px;
+      background: var(--blue); color: white; font-weight: 700;
     }
-
     .primary-button:hover { background: var(--blue-dark); }
-
-    .error-message {
-      min-height: 1.2em;
-      margin: 8px 0 0;
-      color: var(--red);
-      font-size: .88rem;
+    .secondary-button {
+      width: 100%; margin-top: 8px; padding: 11px 16px; border: 1px solid var(--line);
+      border-radius: 8px; background: white; color: var(--ink); font-weight: 650;
     }
-
-    .hint {
-      margin: 11px 0 0;
-      color: var(--muted);
-      font-size: .82rem;
-      line-height: 1.5;
-    }
-
-    footer {
-      padding: 21px 6vw;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      text-align: center;
-      font-size: .85rem;
-    }
-
-    @media (max-width: 760px) {
-      .search-panel { grid-template-columns: 1fr 1fr; }
-      .search-wrap { grid-column: 1 / -1; }
-    }
-
+    @media (max-width: 900px) { .search-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); } .search-wrap { grid-column: 1 / -1; } }
     @media (max-width: 520px) {
-      .topbar { padding: 11px 5vw; }
-      .dropdown { right: 5vw; }
-      main { width: 90vw; }
-      .hero { padding-top: 43px; }
-      .search-panel { grid-template-columns: 1fr; }
-      .search-wrap { grid-column: auto; }
-      .section-heading { align-items: flex-start; flex-direction: column; }
+      .topbar { padding: 11px 5vw; } .dropdown { right: 5vw; } main { width: 90vw; }
+      .hero { padding-top: 43px; } .search-panel { grid-template-columns: 1fr; }
+      .search-wrap { grid-column: auto; } .section-heading { align-items: flex-start; flex-direction: column; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">
-      <span class="brand-mark" aria-hidden="true">▤</span>
-      <span>Biblioteca SJS</span>
-    </div>
-
-    <button
-      class="menu-button"
-      id="menuButton"
-      type="button"
-      aria-label="Abrir menú"
-      aria-expanded="false"
-      aria-controls="dropdownMenu"
-    >
+    <div class="brand"><span class="brand-mark" aria-hidden="true">▤</span><span>Biblioteca SJS</span></div>
+    <button class="menu-button" id="menuButton" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="dropdownMenu">
       <span></span><span></span><span></span>
     </button>
-
     <nav class="dropdown" id="dropdownMenu" hidden>
-      <button id="adminMenuButton" type="button">Administrador</button>
+      <button id="creditsButton" type="button">Créditos</button>
+      <button id="codeButton" type="button">Código</button>
     </nav>
   </header>
 
@@ -415,24 +173,15 @@
     <section class="search-panel" aria-label="Buscar y filtrar libros">
       <div class="search-wrap">
         <span class="search-icon" aria-hidden="true">⌕</span>
-        <input
-          id="searchInput"
-          type="search"
-          placeholder="Buscar por título, área o número…"
-          aria-label="Buscar libros"
-        />
+        <input id="searchInput" type="search" placeholder="Buscar por nombre, clasificación o número…" aria-label="Buscar libros" />
       </div>
-
-      <select id="areaFilter" aria-label="Filtrar por área">
-        <option value="">Todas las áreas</option>
-      </select>
-
+      <select id="classificationFilter" aria-label="Filtrar por clasificación"><option value="">Todas las clasificaciones</option></select>
+      <select id="categoryFilter" aria-label="Filtrar por categoría"><option value="">Todas las categorías</option></select>
       <select id="availabilityFilter" aria-label="Filtrar por disponibilidad">
-        <option value="">Cualquier disponibilidad</option>
-        <option value="true">Disponible</option>
-        <option value="false">No disponible</option>
+        <option value="">Cualquier disponibilidad</option><option value="true">Disponible</option><option value="false">No disponible</option>
       </select>
     </section>
+    <p class="catalog-status" id="catalogStatus" role="status" aria-live="polite">Conectando con el catálogo…</p>
 
     <section aria-labelledby="catalogTitle">
       <div class="section-heading">
@@ -443,257 +192,228 @@
     </section>
   </main>
 
-  <footer>Biblioteca SJS · San José de la Sierra</footer>
+  <footer>
+    Biblioteca SJS · San José de la Sierra<br />
+    Créditos: Emmanuel More · Código alojado en GitHub
+  </footer>
 
-  <div class="overlay" id="adminOverlay" hidden>
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="overlay" id="licenseOverlay" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="licenseTitle">
       <div class="modal-header">
-        <h2 id="modalTitle">Acceso de administrador</h2>
-        <button class="close-button" id="closeModal" type="button" aria-label="Cerrar">×</button>
+        <h2 id="licenseTitle">Licencia MIT</h2>
+        <button class="close-button" id="closeLicense" type="button" aria-label="Cerrar">×</button>
       </div>
+      <p class="modal-copy">Antes de abrir el repositorio, confirma que entiendes que el proyecto se ofrece bajo la licencia MIT. Esta licencia permite usar, copiar, modificar, distribuir, sublicenciar y vender copias del software, siempre que se incluya el aviso de copyright y el texto de la licencia. El software se proporciona “tal cual”, sin garantía.</p>
+      <p class="modal-copy">Puedes <a href="https://github.com/bricenolabs/SanJoseBiblioteca/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">leer el texto de la licencia MIT</a>.</p>
+      <button class="primary-button" id="acceptLicense" type="button">Aceptar y abrir el repositorio</button>
+      <button class="secondary-button" id="cancelLicense" type="button">Cancelar</button>
+    </section>
+  </div>
 
-      <form id="pinForm">
-        <div class="form-field">
-          <label for="pinInput">PIN de administrador</label>
-          <input id="pinInput" type="password" autocomplete="current-password" required />
-        </div>
-        <button class="primary-button" type="submit">Desbloquear</button>
-        <p class="error-message" id="pinError" role="alert"></p>
-      </form>
-
-      <form id="bookForm" hidden>
-        <div class="form-field">
-          <label for="titleInput">Título</label>
-          <input id="titleInput" maxlength="150" required />
-        </div>
-        <div class="form-field">
-          <label for="areaInput">Área</label>
-          <input id="areaInput" maxlength="80" required />
-        </div>
-        <div class="form-field">
-          <label for="numberInput">Número de libro</label>
-          <input id="numberInput" maxlength="50" required />
-        </div>
-        <div class="form-field">
-          <label for="descriptionInput">Breve descripción</label>
-          <textarea id="descriptionInput" maxlength="500" required></textarea>
-        </div>
-        <div class="form-field">
-          <label for="availabilityInput">Disponibilidad</label>
-          <select id="availabilityInput">
-            <option value="true">Disponible</option>
-            <option value="false">No disponible</option>
-          </select>
-        </div>
-        <button class="primary-button" type="submit">Añadir libro</button>
-        <p class="hint">Los datos se guardan en este navegador.</p>
-      </form>
+  <div class="overlay" id="creditsOverlay" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="creditsTitle">
+      <div class="modal-header">
+        <h2 id="creditsTitle">Créditos</h2>
+        <button class="close-button" id="closeCredits" type="button" aria-label="Cerrar">×</button>
+      </div>
+      <p class="modal-copy">Diseño y créditos: Emmanuel More.<br />El código fuente del sitio está alojado en GitHub.</p>
+      <button class="secondary-button" id="closeCreditsButton" type="button">Cerrar</button>
     </section>
   </div>
 
   <script>
-    // PIN de demostración de 8 caracteres; no es una protección segura para producción.
-    const ADMIN_PIN = "Sjs#7Q!2";
-    const STORAGE_KEY = "biblioteca-sjs-libros";
+    // Catálogo público de solo lectura servido por Google Apps Script.
+    const CATALOG_API = "https://script.google.com/macros/s/AKfycbw3SgHtWa_HixUfOF0Jn53Jg0C-fgXGBRVZ_w9-BfhEkYxUDWy5Ucygt1VBvD25LaTmHQ/exec";
+    const REPOSITORY_URL = "https://github.com/bricenolabs/SanJoseBiblioteca";
+    const REFRESH_INTERVAL_MS = 60_000;
 
     const menuButton = document.getElementById("menuButton");
     const dropdownMenu = document.getElementById("dropdownMenu");
-    const adminMenuButton = document.getElementById("adminMenuButton");
-    const overlay = document.getElementById("adminOverlay");
-    const closeModal = document.getElementById("closeModal");
-    const pinForm = document.getElementById("pinForm");
-    const bookForm = document.getElementById("bookForm");
-    const pinInput = document.getElementById("pinInput");
-    const pinError = document.getElementById("pinError");
     const searchInput = document.getElementById("searchInput");
-    const areaFilter = document.getElementById("areaFilter");
+    const classificationFilter = document.getElementById("classificationFilter");
+    const categoryFilter = document.getElementById("categoryFilter");
     const availabilityFilter = document.getElementById("availabilityFilter");
     const bookList = document.getElementById("bookList");
     const bookCount = document.getElementById("bookCount");
+    const catalogStatus = document.getElementById("catalogStatus");
+    const licenseOverlay = document.getElementById("licenseOverlay");
+    const creditsOverlay = document.getElementById("creditsOverlay");
 
-    let books = loadBooks();
-    let unlocked = false;
-
-    function loadBooks() {
-      try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-        return Array.isArray(saved) ? saved : [];
-      } catch {
-        return [];
-      }
-    }
-
-    function saveBooks() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
-    }
+    let books = [];
+    let hasLoadedCatalog = false;
+    let isLoading = false;
 
     function escapeHTML(value) {
-      return String(value).replace(/[&<>"']/g, character => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
+      return String(value ?? "").replace(/[&<>"']/g, character => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
       })[character]);
     }
 
-    function updateAreaFilter() {
-      const currentValue = areaFilter.value;
-      const areas = [...new Set(
-        books.map(book => book.area.trim()).filter(Boolean)
-      )].sort((a, b) => a.localeCompare(b, "es"));
-
-      areaFilter.innerHTML = '<option value="">Todas las áreas</option>';
-
-      for (const area of areas) {
-        const option = document.createElement("option");
-        option.value = area;
-        option.textContent = area;
-        areaFilter.appendChild(option);
+    function getField(record, names) {
+      const entries = Object.entries(record || {});
+      for (const name of names) {
+        const found = entries.find(([key]) => key.trim().toLocaleLowerCase("es") === name);
+        if (found && found[1] !== null && found[1] !== undefined) return found[1];
       }
+      return "";
+    }
 
-      if (areas.includes(currentValue)) areaFilter.value = currentValue;
+    function toAvailability(value) {
+      if (typeof value === "boolean") return value;
+      const normalized = String(value).trim().toLocaleLowerCase("es");
+      if (["true", "1", "sí", "si", "disponible", "yes"].includes(normalized)) return true;
+      if (["false", "0", "no", "no disponible", "unavailable"].includes(normalized)) return false;
+      return null;
+    }
+
+    // Mapea encabezados alternativos y tolera columnas opcionales o reordenadas.
+    function normalizeBook(record) {
+      const name = getField(record, ["nombre", "name", "titulo", "título", "title"]);
+      const number = getField(record, ["numero_id", "número_id", "numero", "número", "codigo", "código", "id", "number", "code"]);
+      const classification = getField(record, ["clasificacion", "clasificación", "classification", "area", "área"]);
+      const categoryValue = getField(record, ["categoria", "categoría", "category", "tipo"]);
+      const description = getField(record, ["descripcion", "descripción", "description", "resumen"]);
+      const availableValue = getField(record, ["disponible", "availability", "available"]);
+      const available = toAvailability(availableValue);
+      const details = Object.entries(record || {})
+        .filter(([key, value]) => !["numero_id", "nombre", "clasificacion", "categoria", "descripcion", "disponible"].includes(key.trim().toLocaleLowerCase("es")) && value !== "" && value !== null && value !== undefined)
+        .map(([key, value]) => `${key}: ${value}`);
+
+      return {
+        name: String(name || "Libro sin nombre"),
+        number: String(number ?? ""),
+        classification: String(classification || "Sin clasificación"),
+        category: String(categoryValue || "Otro"),
+        description: [description, ...details].filter(Boolean).join(" · "),
+        available
+      };
+    }
+
+    function updateSelect(select, label, values) {
+      const previous = select.value;
+      select.replaceChildren(new Option(label, ""));
+      [...new Set(values.map(value => String(value).trim()).filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b, "es"))
+        .forEach(value => select.add(new Option(value, value)));
+      if ([...select.options].some(option => option.value === previous)) select.value = previous;
+    }
+
+    function updateFilters() {
+      updateSelect(classificationFilter, "Todas las clasificaciones", books.map(book => book.classification));
+      // Si Apps Script no devuelve categoría, estos registros se agrupan como "Otro".
+      updateSelect(categoryFilter, "Todas las categorías", books.map(book => book.category));
     }
 
     function renderBooks() {
-      updateAreaFilter();
-
+      updateFilters();
       const query = searchInput.value.trim().toLocaleLowerCase("es");
-      const selectedArea = areaFilter.value;
+      const selectedClassification = classificationFilter.value;
+      const selectedCategory = categoryFilter.value;
       const selectedAvailability = availabilityFilter.value;
 
       const filtered = books.filter(book => {
-        const searchable = [
-          book.title,
-          book.area,
-          book.number,
-          book.description
-        ].join(" ").toLocaleLowerCase("es");
-
-        const matchesQuery = searchable.includes(query);
-        const matchesArea = !selectedArea || book.area === selectedArea;
-        const matchesAvailability =
-          selectedAvailability === "" ||
-          String(book.available) === selectedAvailability;
-
-        return matchesQuery && matchesArea && matchesAvailability;
+        const searchable = [book.name, book.number, book.classification, book.category, book.description]
+          .join(" ").toLocaleLowerCase("es");
+        return searchable.includes(query)
+          && (!selectedClassification || book.classification === selectedClassification)
+          && (!selectedCategory || book.category === selectedCategory)
+          && (selectedAvailability === "" || String(book.available) === selectedAvailability);
       });
 
-      bookCount.textContent =
-        `${filtered.length} ${filtered.length === 1 ? "libro" : "libros"}`;
-
+      bookCount.textContent = `${filtered.length} ${filtered.length === 1 ? "libro" : "libros"}`;
       if (filtered.length === 0) {
-        const message = books.length === 0
-          ? "Todavía no hay libros en el catálogo. El administrador puede añadirlos desde el menú."
-          : "No se encontraron libros con esa búsqueda o esos filtros.";
-
-        bookList.innerHTML = `
-          <div class="empty-state">${escapeHTML(message)}</div>
-        `;
+        const message = !hasLoadedCatalog
+          ? "Conectando con el catálogo…"
+          : books.length === 0
+            ? "Todavía no hay libros en el catálogo."
+            : "No se encontraron libros con esa búsqueda o esos filtros.";
+        bookList.innerHTML = `<div class="empty-state">${escapeHTML(message)}</div>`;
         return;
       }
 
-      bookList.innerHTML = filtered.map(book => `
-        <article class="book-card">
-          <div class="card-top">
-            <span class="area-tag">${escapeHTML(book.area)}</span>
-            <span class="availability ${book.available ? "available" : "unavailable"}">
-              ${book.available ? "Disponible" : "No disponible"}
-            </span>
-          </div>
-          <h3>${escapeHTML(book.title)}</h3>
-          <p class="book-number">N.º ${escapeHTML(book.number)}</p>
-          <p class="book-description">${escapeHTML(book.description)}</p>
-        </article>
-      `).join("");
+      bookList.innerHTML = filtered.map(book => {
+        const statusText = book.available === null ? "Disponibilidad no indicada" : book.available ? "Disponible" : "No disponible";
+        const statusClass = book.available === null ? "" : book.available ? "available" : "unavailable";
+        return `<article class="book-card">
+          <div class="card-top"><div class="tags">
+            <span class="area-tag">${escapeHTML(book.classification)}</span>
+            <span class="area-tag">${escapeHTML(book.category)}</span>
+          </div><span class="availability ${statusClass}">${escapeHTML(statusText)}</span></div>
+          <h3>${escapeHTML(book.name)}</h3>
+          ${book.number ? `<p class="book-number">N.º ${escapeHTML(book.number)}</p>` : ""}
+          ${book.description ? `<p class="book-description">${escapeHTML(book.description)}</p>` : ""}
+        </article>`;
+      }).join("");
+    }
+
+    async function loadCatalog() {
+      if (isLoading) return;
+      isLoading = true;
+      try {
+        const response = await fetch(CATALOG_API, { method: "GET", cache: "no-store", redirect: "follow" });
+        if (!response.ok) throw new Error(`El servidor respondió ${response.status}`);
+        const data = await response.json();
+        if (!Array.isArray(data)) throw new Error("La respuesta de Apps Script no es una lista JSON.");
+        books = data.filter(record => record && typeof record === "object" && !record.error).map(normalizeBook);
+        hasLoadedCatalog = true;
+        catalogStatus.textContent = `Catálogo sincronizado · ${new Date().toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit" })}`;
+        catalogStatus.classList.remove("error");
+        renderBooks();
+      } catch (error) {
+        console.error("No se pudo cargar el catálogo:", error);
+        catalogStatus.textContent = "No se pudo conectar con el catálogo. Comprueba que la implementación de Apps Script permita acceso de lectura público.";
+        catalogStatus.classList.add("error");
+        if (!hasLoadedCatalog) {
+          books = [];
+          renderBooks();
+        }
+      } finally {
+        isLoading = false;
+      }
     }
 
     function closeMenu() {
       dropdownMenu.hidden = true;
       menuButton.setAttribute("aria-expanded", "false");
     }
-
-    function openAdmin() {
-      closeMenu();
-      pinError.textContent = "";
-      pinInput.value = "";
-      pinForm.hidden = unlocked;
-      bookForm.hidden = !unlocked;
-      overlay.hidden = false;
-
-      document.getElementById(unlocked ? "titleInput" : "pinInput").focus();
-    }
-
-    function closeAdminModal() {
-      overlay.hidden = true;
-      pinError.textContent = "";
-      pinForm.reset();
-      bookForm.reset();
-    }
+    function openOverlay(overlay) { overlay.hidden = false; }
+    function closeOverlay(overlay) { overlay.hidden = true; }
 
     menuButton.addEventListener("click", () => {
-      const isOpening = dropdownMenu.hidden;
-      dropdownMenu.hidden = !isOpening;
-      menuButton.setAttribute("aria-expanded", String(isOpening));
+      const opening = dropdownMenu.hidden;
+      dropdownMenu.hidden = !opening;
+      menuButton.setAttribute("aria-expanded", String(opening));
     });
-
-    adminMenuButton.addEventListener("click", openAdmin);
-    closeModal.addEventListener("click", closeAdminModal);
-
+    document.getElementById("creditsButton").addEventListener("click", () => { closeMenu(); openOverlay(creditsOverlay); });
+    document.getElementById("codeButton").addEventListener("click", () => { closeMenu(); openOverlay(licenseOverlay); });
+    document.getElementById("closeLicense").addEventListener("click", () => closeOverlay(licenseOverlay));
+    document.getElementById("cancelLicense").addEventListener("click", () => closeOverlay(licenseOverlay));
+    document.getElementById("acceptLicense").addEventListener("click", () => {
+      closeOverlay(licenseOverlay);
+      window.open(REPOSITORY_URL, "_blank", "noopener,noreferrer");
+    });
+    document.getElementById("closeCredits").addEventListener("click", () => closeOverlay(creditsOverlay));
+    document.getElementById("closeCreditsButton").addEventListener("click", () => closeOverlay(creditsOverlay));
+    for (const overlay of [licenseOverlay, creditsOverlay]) {
+      overlay.addEventListener("click", event => { if (event.target === overlay) closeOverlay(overlay); });
+    }
     document.addEventListener("click", event => {
-      if (!dropdownMenu.hidden &&
-          !dropdownMenu.contains(event.target) &&
-          !menuButton.contains(event.target)) {
-        closeMenu();
-      }
+      if (!dropdownMenu.hidden && !dropdownMenu.contains(event.target) && !menuButton.contains(event.target)) closeMenu();
     });
-
-    overlay.addEventListener("click", event => {
-      if (event.target === overlay) closeAdminModal();
-    });
-
     document.addEventListener("keydown", event => {
       if (event.key === "Escape") {
-        closeMenu();
-        if (!overlay.hidden) closeAdminModal();
+        closeMenu(); closeOverlay(licenseOverlay); closeOverlay(creditsOverlay);
       }
     });
-
-    pinForm.addEventListener("submit", event => {
-      event.preventDefault();
-
-      if (pinInput.value === ADMIN_PIN) {
-        unlocked = true;
-        pinForm.hidden = true;
-        bookForm.hidden = false;
-        document.getElementById("titleInput").focus();
-      } else {
-        pinError.textContent = "PIN incorrecto. Inténtalo de nuevo.";
-        pinInput.select();
-      }
-    });
-
-    bookForm.addEventListener("submit", event => {
-      event.preventDefault();
-
-      books.unshift({
-        title: document.getElementById("titleInput").value.trim(),
-        area: document.getElementById("areaInput").value.trim(),
-        number: document.getElementById("numberInput").value.trim(),
-        description: document.getElementById("descriptionInput").value.trim(),
-        available: document.getElementById("availabilityInput").value === "true"
-      });
-
-      saveBooks();
-      renderBooks();
-      closeAdminModal();
-    });
-
     searchInput.addEventListener("input", renderBooks);
-    areaFilter.addEventListener("change", renderBooks);
+    classificationFilter.addEventListener("change", renderBooks);
+    categoryFilter.addEventListener("change", renderBooks);
     availabilityFilter.addEventListener("change", renderBooks);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) loadCatalog(); });
 
     renderBooks();
+    loadCatalog();
+    window.setInterval(loadCatalog, REFRESH_INTERVAL_MS);
   </script>
 </body>
-        </html>
+</html>
